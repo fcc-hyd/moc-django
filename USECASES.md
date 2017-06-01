@@ -9,3 +9,6 @@
 - User can add a movie to his WatchList
 - User can rate the movie 
 - User can comment on the movie 
+
+
+This project will be clone of IMDB with Django :D
