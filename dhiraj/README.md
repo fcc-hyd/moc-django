@@ -1,1 +1,1 @@
-
+The month of code progress is recorded in this repository. 
