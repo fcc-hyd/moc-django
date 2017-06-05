@@ -7,9 +7,8 @@ The purpose of this project is to learn by implementing the django REST framewor
 ## Usecases
 
 - Login, Signin and Logout features 
-- User can see his previous historic inputs in his profile 
-- User can like or unlike a result provided by the application 
-- The user can share the output that he gets from the application to various social websites.
+- The user can like/dislike, comment or bookmark/unbookmark a news article. 
+- The user can see his bookmarked news articles.
 
 ## Architecture Diagram
  
