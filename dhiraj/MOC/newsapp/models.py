@@ -8,12 +8,13 @@ from django.db import models
 
 class tbl_MST_NewsArticle(models.Model):
 	articleId = models.AutoField(primary_key=True)
-	author = models.CharField(max_length = 30)
-	title = models.CharField(max_length = 100)
-	description = models.CharField(max_length = 250)
-	url = models.CharField(max_length = 50)
-	urlToImage = models.CharField(max_length = 80)
-	publishedAt = models.DateField()
+	author = models.CharField(max_length = 30, null=True)
+	title = models.CharField(max_length = 100, null=True)
+	description = models.CharField(max_length = 250, null=True)
+	url = models.CharField(max_length = 50, null=True)
+	urlToImage = models.CharField(max_length = 80, null=True)
+	publishedAt = models.DateField(null=True)
+	source = models.CharField(max_length = 30, default="")
 
 	def __str__(self):
 		return(title)

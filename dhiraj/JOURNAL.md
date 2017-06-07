@@ -24,5 +24,8 @@ Saturday and Sunday
  - Getting done with the parser
 
 ## Jun 6
- - Getting done with the User login / logout / register
+ - Getting done with the parser integration
  - Getting done with the basic view
+
+## Jun 7
+ - Getting done with the login / logout / forgot password

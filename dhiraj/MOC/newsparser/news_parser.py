@@ -15,3 +15,22 @@ class NewsParser(object):
 			temp = [article["author"], article["title"], article["description"], article["url"], article["urlToImage"], article["publishedAt"]]
 			finalList.append(temp)
 		return(finalList)
+
+'''
+#temp function to push to the values to models
+
+def parse(url, source):
+   jsonResult = requests.get(url)
+   data = json.loads(jsonResult.text)
+   for article in data["articles"]:
+      author = article["author"]
+      title = article["title"]
+      description = article["description"]
+      url = article["url"]
+      urlToImage = article["urlToImage"]
+      publishedAt = article["publishedAt"]
+      if publishedAt != None:
+         publishedAt = publishedAt[:publishedAt.find("T")]
+      tempObj = tbl_MST_NewsArticle(author = author,title = title,description = description,url = url,urlToImage = urlToImage,publishedAt = publishedAt,source = source)
+      tempObj.save()
+'''
