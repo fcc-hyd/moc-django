@@ -13,4 +13,4 @@ Reading resources:
 - Basics of HTML (https://www.tutorialspoint.com/html/html_basic_tags.htm)
 - Know how to use a virtualenv (http://www.pythonforbeginners.com/basics/how-to-use-python-virtualenv) 
 - know how to configure pycharm with virtualenv (http://exponential.io/blog/2015/02/10/configure-pycharm-to-use-virtualenv/)
-- 
+ 
