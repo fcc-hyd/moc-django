@@ -22,3 +22,10 @@ Saturday and Sunday
 ## Jun 5
  - Getting done with data model
  - Getting done with the parser
+
+## Jun 6
+ - Getting done with the parser integration
+ - Getting done with the basic view
+
+## Jun 7
+ - Getting done with the login / logout / forgot password
