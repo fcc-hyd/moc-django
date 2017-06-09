@@ -29,3 +29,13 @@ Saturday and Sunday
 
 ## Jun 7
  - Getting done with the database integration and bookmarks
+ 
+## Jun 8
+Things I should learn in MOC
+ 1. Inbuilt Features 
+ 2. Restful framework
+ 3. Git and GitHub
+ 4. Good Practices in django application development 
+ 5. Testing a django applicaiton (Unit, Integrated)
+ 6. Integrating with CI
+ 7. Deploying django application in AWS
