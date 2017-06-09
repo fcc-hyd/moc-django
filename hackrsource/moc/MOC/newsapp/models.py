@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
+from django.utils.encoding import python_2_unicode_compatible
 
 from django.db import models
 
@@ -17,7 +18,7 @@ class tbl_MST_NewsArticle(models.Model):
 	source = models.CharField(max_length = 30, default="")
 
 	def __str__(self):
-		return(title)
+		return str(self.articleId)
 
 
 class tbl_TRN_NewsComment(models.Model):
@@ -28,7 +29,7 @@ class tbl_TRN_NewsComment(models.Model):
 	commentedAt = models.DateField()
 
 	def __str__(self):
-		return(comment)
+		return str(self.commentId)
 
 class tbl_TRN_NewsBookmark(models.Model):
 	bookmarkId = models.AutoField(primary_key = True)
@@ -37,7 +38,7 @@ class tbl_TRN_NewsBookmark(models.Model):
 	bookmarkedAt = models.DateField()
 
 	def __str__(self):
-		return(str(articleId))
+		return str(self.bookmarkId)
 
 class tbl_TRN_NewsLike(models.Model):
 	likeId = models.AutoField(primary_key = True)
@@ -47,4 +48,4 @@ class tbl_TRN_NewsLike(models.Model):
 	likedAt = models.DateField
 
 	def __str__(self):
-		return(str(articleId))
+		return str(self.likeId)

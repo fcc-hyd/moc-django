@@ -16,10 +16,15 @@
 							</div>
 							<div class="panel-footer">
 								<div class="row">
-									<div>
+									<div class="col-md-6">
 										<p class="article-author">
 											<b>Published by : </b>{{values.0}}
 										</p> <br>
+									</div>
+									<div col-md-6>
+										<button class="btn btn-default" onclick="bookmark({{id}})">
+											Bookmark
+										</button>
 									</div>
 								</div>
 							</div>
@@ -32,4 +37,18 @@
 			{% endfor %}
 		</div>
 	</div>	
+
+	<script type="text/javascript">
+		function bookmark(articleId){
+			//alert(articleId);
+			$.ajax({
+				type:"GET",
+				url:"bookmark",
+				data:{id:articleId},
+				success: function(data) {
+					alert(data);
+				},
+			});			
+		}
+	</script>
 {% endblock %}

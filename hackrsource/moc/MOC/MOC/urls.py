@@ -20,5 +20,6 @@ from newsapp import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name="home"),
-    url(r'^profile/$', views.profile, name="profile")
+    url(r'^bookmark$',views.bookmark, name="bookmark"),
+    url(r'^profile/$', views.profile, name="profile"),
 ]
