@@ -1,11 +1,12 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
+from django.utils.encoding import python_2_unicode_compatible
 
 from django.db import models
 
 # Create your models here.
 # will be using users class inbuilt in django
-
+@python_2_unicode_compatible
 class tbl_MST_NewsArticle(models.Model):
 	articleId = models.AutoField(primary_key=True)
 	author = models.CharField(max_length = 30, null=True)
@@ -17,7 +18,7 @@ class tbl_MST_NewsArticle(models.Model):
 	source = models.CharField(max_length = 30, default="")
 
 	def __str__(self):
-		return(title)
+		return self.title
 
 
 class tbl_TRN_NewsComment(models.Model):
@@ -28,7 +29,7 @@ class tbl_TRN_NewsComment(models.Model):
 	commentedAt = models.DateField()
 
 	def __str__(self):
-		return(comment)
+		return self.comment
 
 class tbl_TRN_NewsBookmark(models.Model):
 	bookmarkId = models.AutoField(primary_key = True)

@@ -16,9 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from newsapp import views
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name="home"),
+    url(r'^articles$', views.NewsArticleList.as_view(), name="articles"), 
+    url(r'^comments$', views.CommentsList.as_view(), name="comments"),
     url(r'^profile/$', views.profile, name="profile")
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
