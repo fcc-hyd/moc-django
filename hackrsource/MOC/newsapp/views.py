@@ -35,11 +35,24 @@ def bookmark(request):
 	articleID = int(articleId)
 	user = User.objects.get(id = 1) #will be made dynamic once users login is added
 	article = tbl_MST_NewsArticle.objects.get(articleId = articleID)
-	newBookmark = tbl_TRN_NewsBookmark(userId = user, articleId=article, bookmarkedAt = datetime.now())
+	newBookmark = tbl_TRN_NewsBookmark(user = user, article = article, bookmarkedAt = datetime.now())
 	newBookmark.save()
-	print newBookmark
 	i = newBookmark.bookmarkId
-	return HttpResponse("Success with bookmark id = " + str(i))
+	return HttpResponse("Success bookmark id = " + str(i))
+
+def unbookmark(request):
+	articleId = request.GET.get('id', None)
+	articleID = int(articleId)
+	article = tbl_MST_NewsArticle.objects.get(articleId = articleID)
+	tbl_TRN_NewsBookmark.objects.filter(article = article).delete()
+	return HttpResponse("Success remove bookmark")
 
 def profile(request):
-	pass
+	d = {}
+	user = User.objects.get(id=1)
+	resultSet = tbl_TRN_NewsBookmark.objects.filter(user = user)
+	for result in resultSet:
+		temp = [result.article.author, result.article.title, result.article.description, result.article.url, result.article.urlToImage, result.article.publishedAt, result.article.source]
+		i = result.article.articleId
+		d[i] = temp
+	return render(request, 'newsapp/profile.html', {'result':d})

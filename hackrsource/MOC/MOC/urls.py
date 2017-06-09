@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name="home"),
     url(r'^bookmark$',views.bookmark, name="bookmark"),
+    url(r'^unbookmark$',views.unbookmark, name="unbookmark"),
     url(r'^profile/$', views.profile, name="profile"),
 ]

@@ -24,28 +24,37 @@ class tbl_MST_NewsArticle(models.Model):
 class tbl_TRN_NewsComment(models.Model):
 	commentId = models.AutoField(primary_key = True)
 	comment = models.CharField(max_length = 200)
-	userId = models.ForeignKey(User, on_delete=models.CASCADE)	
-	articleId = models.ForeignKey(tbl_MST_NewsArticle, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)	
+	article = models.ForeignKey(tbl_MST_NewsArticle, on_delete=models.CASCADE)
 	commentedAt = models.DateField()
 
 	def __str__(self):
 		return str(self.commentId)
 
+	class Meta:
+		unique_together = ('user', 'article',)
+
 class tbl_TRN_NewsBookmark(models.Model):
 	bookmarkId = models.AutoField(primary_key = True)
-	userId = models.ForeignKey(User, on_delete=models.CASCADE)	
-	articleId = models.ForeignKey(tbl_MST_NewsArticle, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)	
+	article = models.ForeignKey(tbl_MST_NewsArticle, on_delete=models.CASCADE)
 	bookmarkedAt = models.DateField()
 
 	def __str__(self):
 		return str(self.bookmarkId)
 
+	class Meta:
+		unique_together = ('user', 'article',)
+
 class tbl_TRN_NewsLike(models.Model):
 	likeId = models.AutoField(primary_key = True)
 	like = models.IntegerField()
-	userId = models.ForeignKey(User, on_delete=models.CASCADE)	
-	articleId = models.ForeignKey(tbl_MST_NewsArticle, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)	
+	article = models.ForeignKey(tbl_MST_NewsArticle, on_delete=models.CASCADE)
 	likedAt = models.DateField
 
 	def __str__(self):
 		return str(self.likeId)
+
+	class Meta:
+		unique_together = ('user', 'article',)
