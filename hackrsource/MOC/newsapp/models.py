@@ -19,7 +19,7 @@ class NewsArticle(models.Model):
     source = models.CharField(max_length=30, default="")
 
     def __str__(self):
-        return str(self.articleId)
+        return str(self.article_id)
 
 
 class NewsComment(models.Model):
@@ -30,7 +30,7 @@ class NewsComment(models.Model):
     commented_at = models.DateField()
 
     def __str__(self):
-        return str(self.commentId)
+        return str(self.comment_id)
 
     class Meta:
         unique_together = ('user', 'article',)
@@ -43,7 +43,7 @@ class NewsBookmark(models.Model):
     bookmarked_at = models.DateField()
 
     def __str__(self):
-        return str(self.bookmarkId)
+        return str(self.bookmark_id)
 
     class Meta:
         unique_together = ('user', 'article',)
@@ -57,7 +57,7 @@ class NewsLike(models.Model):
     liked_at = models.DateField
 
     def __str__(self):
-        return str(self.likeId)
+        return str(self.like_id)
 
     class Meta:
         unique_together = ('user', 'article',)
