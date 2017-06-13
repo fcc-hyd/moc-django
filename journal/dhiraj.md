@@ -35,6 +35,8 @@ Things I should learn in MOC
  1. Inbuilt Features 
  2. Restful framework
  3. Git and GitHub
+  - https://www.atlassian.com/git/tutorials
+  - 
  4. Good Practices in django application development 
  5. Testing a django applicaiton (Unit, Integrated)
  6. Integrating with CI
