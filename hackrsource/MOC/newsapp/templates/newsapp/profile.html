@@ -15,24 +15,19 @@
 							</div>
 							<div class="panel-footer">
 								<div class="row">
-									<div class="col-md-3">
+									<div class="col-md-6">
 										<p class="article-author">
 											<b>Published by : </b>{{values.0}}
 										</p> <br>
 									</div>
-									<div class="col-md-9">
+									<div class="col-md-6">
 										<div class="col-md-3">
 											<button class="btn btn-primary" onclick="like({{id}})">
 												Like
 											</button>
 										</div>
 										<div class="col-md-3">
-											<button class="btn btn-danger" onclick="unlike({{id}})">
-												Unlike
-											</button>
-										</div>
-										<div class="col-md-3">
-											<button class="btn btn-default" onclick="unbookmark({{id}})">
+											<button class="btn btn-success toggle-bookmark" data-state="True" data-id="{{id}}">
 												Remove Bookmark
 											</button>
 										</div>
@@ -50,18 +45,21 @@
 		</div>
 	</div>	
 	<script type="text/javascript">
-		function unbookmark(articleId){
-			//alert(articleId);
-			$.ajax({
-				type:"GET",
-				url:"/unbookmark",
-				data:{id:articleId},
-				success: function(data) {
-				    id = "#article-" + articleId;
-					$(id).remove();
-				},
-			});			
-		}
-
+		$(document).ready(function(){
+		    $(".toggle-bookmark").click(function(){
+                var element = $(this);
+                var articleId = element.data("id");
+                var state = element.data("state");
+                $.ajax({
+                    type:"GET",
+                    url:"/unbookmark",
+                    data:{id:articleId},
+                    success: function(data) {
+                        id = "#article-" + articleId;
+					    $(id).remove();
+                    },
+			    });
+		    });
+		});
 	</script>
 {% endblock %}

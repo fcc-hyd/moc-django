@@ -16,24 +16,19 @@
 							</div>
 							<div class="panel-footer">
 								<div class="row">
-									<div class="col-md-3">
+									<div class="col-md-6">
 										<p class="article-author">
 											<b>Published by : </b>{{values.0}}
 										</p> <br>
 									</div>
-									<div class="col-md-9" >
+									<div class="col-md-6" >
 										<div class="col-md-3">
 											<button class="btn btn-primary" onclick="like({{id}})">
 												Like
 											</button>
 										</div>
 										<div class="col-md-3">
-											<button class="btn btn-danger" onclick="unlike({{id}})">
-												Unlike
-											</button>
-										</div>
-										<div class="col-md-3">
-											<button class="btn btn-default" onclick="bookmark({{id}})">
+											<button class="btn btn-success toggle-bookmark" data-state="False" data-id="{{id}}">
 												Bookmark
 											</button>
 										</div>
@@ -52,16 +47,46 @@
 	</div>	
 
 	<script type="text/javascript">
-		function bookmark(articleId){
-			//alert(articleId);
-			$.ajax({
-				type:"GET",
-				url:"bookmark",
-				data:{id:articleId},
-				success: function(data) {
-					alert(data);
-				},
-			});			
-		}
+		$(document).ready(function(){
+		    $(".toggle-bookmark").click(function(){
+                var element = $(this);
+                var articleId = element.data("id");
+                var state = element.data("state");
+                $.ajax({
+                    type:"GET",
+                    url:"bookmark",
+                    data:{id:articleId},
+                    success: function(data) {
+                        element.attr("data-state", "True");
+                        element.html("Remove Bookmark");
+                    },
+                });
+                /*
+                if(state == "True"){
+                    $.ajax({
+                    type:"GET",
+                    url:"/unbookmark",
+                    data:{id:articleId},
+                    success: function(data) {
+                        element.attr("data-state", "False");
+                        element.html("Bookmark");
+                    },
+			    });
+                }
+                else{
+                    $.ajax({
+                        type:"GET",
+                        url:"bookmark",
+                        data:{id:articleId},
+                        success: function(data) {
+                            element.attr("data-state", "True");
+                            element.html("Remove Bookmark");
+                        },
+                    });
+                }
+                */
+		    });
+		});
+
 	</script>
 {% endblock %}
