@@ -2,7 +2,6 @@
 
 ## Jun 1
 
-
 - EXPLORE : Polymorphism and its importance
 - EXPLORE : Multiple inheritance
 - READ : https://docs.djangoproject.com/en/1.11/topics/db/models
@@ -35,7 +34,27 @@ Things I should learn in MOC
  1. Inbuilt Features 
  2. Restful framework
  3. Git and GitHub
- 4. Good Practices in django application development 
+ 4. Good Practices in django application development
  5. Testing a django applicaiton (Unit, Integrated)
  6. Integrating with CI
  7. Deploying django application in AWS
+
+## Jun 9
+ - 
+
+## Jun 10 and Jun 11
+
+ - Saturday went for jenkins meetup 
+ - Sunday had collaboration session with other streams
+
+## Jun 12
+
+ - Worked on the frontend development
+ - Started working on my portfolio
+
+## Jun 13
+
+ - Code review changes implemented
+ - Continue working on my portfolio
+
+## Jun 14

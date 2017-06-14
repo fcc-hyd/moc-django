@@ -16,15 +16,28 @@
 							</div>
 							<div class="panel-footer">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-3">
 										<p class="article-author">
 											<b>Published by : </b>{{values.0}}
 										</p> <br>
 									</div>
-									<div col-md-6>
-										<button class="btn btn-default" onclick="bookmark({{id}})">
-											Bookmark
-										</button>
+									<div class="col-md-9" >
+										<div class="col-md-3">
+											<button class="btn btn-primary" onclick="like({{id}})">
+												Like
+											</button>
+										</div>
+										<div class="col-md-3">
+											<button class="btn btn-danger" onclick="unlike({{id}})">
+												Unlike
+											</button>
+										</div>
+										<div class="col-md-3">
+											<button class="btn btn-default" onclick="bookmark({{id}})">
+												Bookmark
+											</button>
+										</div>
+
 									</div>
 								</div>
 							</div>

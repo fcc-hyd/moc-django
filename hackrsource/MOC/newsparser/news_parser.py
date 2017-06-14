@@ -1,36 +1,50 @@
-'''
-Author : Dhiraj Subramanian B
-This python module will be used for requesting NewsApi for fetching latest news. The latest news will be then updated to the application database.
-'''
+import json
+import requests
 
-import requests, json
 
 class NewsParser(object):
-	# two methods, for initializing the json and pushing it to db
-	def parse(self):
-		jsonResult = requests.get("https://newsapi.org/v1/articles?source=the-verge&sortBy=top&apiKey=07dcf26d0ded41ba8436fb8bd233edba")
-		data = json.loads(jsonResult.text)
-		finalList = []
-		for article in data["articles"]:
-			temp = [article["author"], article["title"], article["description"], article["url"], article["urlToImage"], article["publishedAt"]]
-			finalList.append(temp)
-		return(finalList)
+    """
+    This class is used for parsing news articles from newsapi and is used for inserting the values to the database
+
+    Usage:
+        news_parser = NewsParser(url = "some_valid_url", source = "source_of_news")
+        result = news_parser.parse()
+    """
+
+    def __init__(self, url, source):
+        """
+
+        :param url: valid url string
+        :param source: valid source of the url string
+        """
+        self.url = url
+        self.source = source
+
+    def parse(self):
+        """
+
+        :return: this function returns list of lists. This can be parsed to push the values to the database
+        """
+        json_result = requests.get(self.url)
+        data = json.loads(json_result.text)
+        final_list = []
+        for article in data["articles"]:
+            temp = [article["author"], article["title"], article["description"], article["url"], article["urlToImage"],
+                    article["publishedAt"]]
+            final_list.append(temp)
+        return final_list
+
 
 '''
-#temp function to push to the values to models
-
-def parse(url, source):
-   jsonResult = requests.get(url)
-   data = json.loads(jsonResult.text)
-   for article in data["articles"]:
-      author = article["author"]
-      title = article["title"]
-      description = article["description"]
-      url = article["url"]
-      urlToImage = article["urlToImage"]
-      publishedAt = article["publishedAt"]
-      if publishedAt != None:
-         publishedAt = publishedAt[:publishedAt.find("T")]
-      tempObj = tbl_MST_NewsArticle(author = author,title = title,description = description,url = url,urlToImage = urlToImage,publishedAt = publishedAt,source = source)
-      tempObj.save()
+    def store(self, final_list):
+        for value in final_list:
+            author = value[0]
+            title = value[1]
+            description = value[2]
+            url = value[3]
+            url_to_image = value[4]
+            published_at = value[5]
+            tempObj = NewsArticle(author=author, title=title, description=description, url=url,
+                                          url_to_image=url_to_image, published_at=published_at, source=self.source)
+            tempObj.save()
 '''
