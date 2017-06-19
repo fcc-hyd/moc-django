@@ -3,7 +3,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from models import NewsArticle, NewsBookmark
@@ -47,7 +47,7 @@ def registeration(request):
             username = data["user"]
             password = data["password"]
             email = data["email"]
-            user = User(username = username, password = password, email = email)
+            user = User.objects.create_user(username = username, password = password, email = email)
             if user is not None:
                 user.save()
                 login(request, user)
@@ -116,3 +116,8 @@ def profile(request):
         i = result.article.article_id
         d[i] = temp
     return render(request, 'newsapp/profile.html', {'result': d})
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponse("Logout successful")
