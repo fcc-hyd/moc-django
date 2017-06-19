@@ -3,18 +3,20 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 
+from datetime import date
+
 
 # Create your models here.
 # will be using users class inbuilt in django
 
 class NewsArticle(models.Model):
     article_id = models.AutoField(primary_key=True)
-    author = models.CharField(max_length=30, null=True)
-    title = models.CharField(max_length=100, null=True)
-    description = models.CharField(max_length=250, null=True)
-    url = models.CharField(max_length=50, null=True)
-    url_to_image = models.CharField(max_length=80, null=True)
-    published_at = models.DateField(null=True)
+    author = models.CharField(max_length=30, blank=True, default="")
+    title = models.CharField(max_length=100, blank=True, default="")
+    description = models.CharField(max_length=250, blank=True, default="")
+    url = models.CharField(max_length=50, blank=True, default="")
+    url_to_image = models.CharField(max_length=80, blank=True, default="")
+    published_at = models.DateField(blank=True,null=True)
     source = models.CharField(max_length=30, default="")
 
     def __str__(self):

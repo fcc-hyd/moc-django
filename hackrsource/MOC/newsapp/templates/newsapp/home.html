@@ -23,7 +23,7 @@
 									</div>
 									<div class="col-md-6" >
 										<div class="col-md-3">
-											<button class="btn btn-primary" onclick="like({{id}})">
+											<button class="btn btn-primary toggle-like" data-state="False" data-id="{{id}}">
 												Like
 											</button>
 										</div>
@@ -54,38 +54,15 @@
                 var state = element.data("state");
                 $.ajax({
                     type:"GET",
-                    url:"bookmark",
-                    data:{id:articleId},
+                    url:"/bookmark",
+                    data: {id:articleId},
                     success: function(data) {
                         element.attr("data-state", "True");
                         element.html("Remove Bookmark");
                     },
                 });
-                /*
-                if(state == "True"){
-                    $.ajax({
-                    type:"GET",
-                    url:"/unbookmark",
-                    data:{id:articleId},
-                    success: function(data) {
-                        element.attr("data-state", "False");
-                        element.html("Bookmark");
-                    },
-			    });
-                }
-                else{
-                    $.ajax({
-                        type:"GET",
-                        url:"bookmark",
-                        data:{id:articleId},
-                        success: function(data) {
-                            element.attr("data-state", "True");
-                            element.html("Remove Bookmark");
-                        },
-                    });
-                }
-                */
 		    });
+
 		});
 
 	</script>

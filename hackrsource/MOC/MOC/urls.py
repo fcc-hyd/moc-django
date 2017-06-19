@@ -15,12 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from newsapp import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.home, name="home"),
-    url(r'^bookmark$',views.bookmark, name="bookmark"),
-    url(r'^unbookmark$',views.unbookmark, name="unbookmark"),
+    url(r'^$', views.user_login, name="user_login"),
+    url(r'^register/$', views.registeration, name="registeration"),
+    url(r'^home/$', views.home, name="home"),
+    url(r'^bookmark/$',views.bookmark, name="bookmark"),
+    url(r'^unbookmark/$',views.unbookmark, name="unbookmark"),
     url(r'^profile/$', views.profile, name="profile"),
+    url(r'^like/$', views.like, name="like"),
+    url(r'^unlike/$', views.unlike, name="unlike"),
 ]

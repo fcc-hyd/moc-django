@@ -22,7 +22,7 @@
 									</div>
 									<div class="col-md-6">
 										<div class="col-md-3">
-											<button class="btn btn-primary" onclick="like({{id}})">
+											<button class="btn btn-primary toggle-like" data-state="False" data-id="{{id}}">
 												Like
 											</button>
 										</div>
@@ -60,6 +60,8 @@
                     },
 			    });
 		    });
+
+
 		});
 	</script>
 {% endblock %}

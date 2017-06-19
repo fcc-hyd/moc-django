@@ -58,3 +58,8 @@ Things I should learn in MOC
  - Continue working on my portfolio
 
 ## Jun 14
+ - Implementation of bookmarks 
+ - Started implementation of likes 
+ 
+## Jun 15
+ - Made view for login and sign-in
