@@ -1,17 +1,19 @@
 from datetime import datetime
 
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-from models import NewsArticle, NewsBookmark
+from models import NewsArticle, NewsBookmark, NewsLike
 from forms import LoginForm, RegisterationForm
 
 
 # Create your views here.
 def user_login(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect("/home")
     if request.method == "POST":
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
@@ -21,15 +23,7 @@ def user_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                results = NewsArticle.objects.all()
-                d = {}
-                for result in results:
-                    temp = [result.author, result.title, result.description, result.url, result.url_to_image,
-                            result.published_at,
-                            result.source]
-                    i = result.article_id
-                    d[i] = temp
-                return render(request, 'newsapp/home.html', {'result': d})
+                return HttpResponseRedirect("/home")
             else:
                 return HttpResponse("Error with login")
         else:
@@ -47,19 +41,11 @@ def registeration(request):
             username = data["user"]
             password = data["password"]
             email = data["email"]
-            user = User.objects.create_user(username = username, password = password, email = email)
+            user = User.objects.create_user(username=username, password=password, email=email)
             if user is not None:
                 user.save()
                 login(request, user)
-                results = NewsArticle.objects.all()
-                d = {}
-                for result in results:
-                    temp = [result.author, result.title, result.description, result.url, result.url_to_image,
-                            result.published_at,
-                            result.source]
-                    i = result.article_id
-                    d[i] = temp
-                return render(request, 'newsapp/home.html', {'result': d})
+                return HttpResponseRedirect("/home")
             else:
                 return HttpResponse("Error in creating the user object")
     else:
@@ -67,7 +53,7 @@ def registeration(request):
         return render(request, 'newsapp/register.html', {'form': register_form})
 
 
-@login_required
+@login_required(login_url="/")
 def home(request):
     results = NewsArticle.objects.all()
     d = {}
@@ -78,7 +64,8 @@ def home(request):
         d[i] = temp
     return render(request, 'newsapp/home.html', {'result': d})
 
-@login_required
+
+@login_required(login_url="/")
 def bookmark(request):
     article_id = request.GET.get('id', None)
     article_id = int(article_id)
@@ -89,7 +76,8 @@ def bookmark(request):
     i = new_bookmark.bookmark_id
     return HttpResponse("Success bookmark id = " + str(i))
 
-@login_required
+
+@login_required(login_url="/")
 def unbookmark(request):
     article_id = request.GET.get('id', None)
     article_id = int(article_id)
@@ -97,15 +85,29 @@ def unbookmark(request):
     NewsBookmark.objects.filter(article=article).delete()
     return HttpResponse("Success remove bookmark")
 
-@login_required
+
+@login_required(login_url="/")
 def like(request):
-    pass
+    article_id = request.GET.get('id', None)
+    article_id = int(article_id)
+    user = request.user
+    article = NewsArticle.objects.get(article_id=article_id)
+    new_like = NewsLike(user=user, article=article, liked_at=datetime.now())
+    new_like.save()
+    i = new_like.like_id
+    return HttpResponse("Success bookmark id = " + str(i))
 
-@login_required
+
+@login_required(login_url="/")
 def unlike(request):
-    pass
+    article_id = request.GET.get('id', None)
+    article_id = int(article_id)
+    article = NewsArticle.objects.get(article_id=article_id)
+    NewsLike.objects.filter(article=article).delete()
+    return HttpResponse("Success remove like")
 
-@login_required
+
+@login_required(login_url="/")
 def profile(request):
     d = {}
     user = request.user
@@ -117,7 +119,8 @@ def profile(request):
         d[i] = temp
     return render(request, 'newsapp/profile.html', {'result': d})
 
-@login_required
+
+@login_required(login_url="/")
 def user_logout(request):
     logout(request)
-    return HttpResponse("Logout successful")
+    return HttpResponseRedirect("/")

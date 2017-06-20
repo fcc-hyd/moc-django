@@ -3,8 +3,6 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 
-from datetime import date
-
 
 # Create your models here.
 # will be using users class inbuilt in django
@@ -52,10 +50,9 @@ class NewsBookmark(models.Model):
 
 class NewsLike(models.Model):
     like_id = models.AutoField(primary_key=True)
-    like = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     article = models.ForeignKey(NewsArticle, on_delete=models.CASCADE)
-    liked_at = models.DateField
+    liked_at = models.DateField()
 
     def __str__(self):
         return str(self.like_id)
