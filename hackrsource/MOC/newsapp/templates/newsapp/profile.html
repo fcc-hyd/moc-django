@@ -21,10 +21,17 @@
 										</p> <br>
 									</div>
 									<div class="col-md-6">
+
 										<div class="col-md-3">
+                                            {% if values.7 == 0 %}
 											<button class="btn btn-primary toggle-like" data-state=0 data-id="{{id}}">
 												Like
 											</button>
+                                            {% else %}
+                                            <button class="btn btn-primary toggle-like" data-state=1 data-id="{{id}}">
+												Unlike
+											</button>
+                                            {% endif %}
 										</div>
 										<div class="col-md-3">
 											<button class="btn btn-success toggle-bookmark" data-state=1 data-id="{{id}}">
@@ -61,7 +68,37 @@
 			    });
 		    });
 
+            $(".toggle-like").click(function(){
+                var element = $(this);
+                var articleId = element.data("id");
+                var state = element.data("state");
+                console.log("data-state value : " + state);
+                if(state == "1"){
+                    console.log("Removing Like");
+                    $.ajax({
+                        type:"GET",
+                        url:"/unlike",
+                        data:{id:articleId},
+                        success: function(data) {
+                            element.attr("data-state", 0);
+                            element.html("Like");
+                        },
+                    });
+                }
+                else{
+                    console.log("Adding like");
+                    $.ajax({
+                        type:"GET",
+                        url:"/like",
+                        data: {id:articleId},
+                        success: function(data) {
+                            element.attr("data-state", 1);
+                            element.html("Unlike");
+                        },
+                     });
+                }
 
+		    });
 		});
 	</script>
 {% endblock %}

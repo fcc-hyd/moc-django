@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from models import NewsArticle, NewsBookmark, NewsLike
-from forms import LoginForm, RegisterationForm
+from forms import LoginForm, RegisterationForm, PasswordReset
 
 
 # Create your views here.
@@ -31,6 +31,11 @@ def user_login(request):
     else:
         login_form = LoginForm()
         return render(request, 'newsapp/login.html', {'form': login_form})
+
+
+def password_reset(request):
+    password_reset_form = PasswordReset()
+    return render(request, "newsapp/password_reset.html", {'form': password_reset_form})
 
 
 def registeration(request):
@@ -57,9 +62,18 @@ def registeration(request):
 def home(request):
     results = NewsArticle.objects.all()
     d = {}
+    user = request.user
     for result in results:
+        liked = 1
+        bookmarked = 1
+        liked_result = NewsLike.objects.filter(article=result, user=user)
+        bookmarked_result = NewsBookmark.objects.filter(article=result, user=user)
+        if len(liked_result) == 0:
+            liked = 0
+        if len(bookmarked_result) == 0:
+            bookmarked = 0
         temp = [result.author, result.title, result.description, result.url, result.url_to_image, result.published_at,
-                result.source]
+                result.source, liked, bookmarked]
         i = result.article_id
         d[i] = temp
     return render(request, 'newsapp/home.html', {'result': d})
@@ -82,7 +96,8 @@ def unbookmark(request):
     article_id = request.GET.get('id', None)
     article_id = int(article_id)
     article = NewsArticle.objects.get(article_id=article_id)
-    NewsBookmark.objects.filter(article=article).delete()
+    user = request.user
+    NewsBookmark.objects.filter(article=article, user=user).delete()
     return HttpResponse("Success remove bookmark")
 
 
@@ -103,7 +118,8 @@ def unlike(request):
     article_id = request.GET.get('id', None)
     article_id = int(article_id)
     article = NewsArticle.objects.get(article_id=article_id)
-    NewsLike.objects.filter(article=article).delete()
+    user = request.user
+    NewsLike.objects.filter(article=article, user=user).delete()
     return HttpResponse("Success remove like")
 
 
@@ -113,8 +129,12 @@ def profile(request):
     user = request.user
     result_set = NewsBookmark.objects.filter(user=user)
     for result in result_set:
+        liked = 1
+        liked_result = NewsLike.objects.filter(article=result.article, user=user)
+        if len(liked_result) == 0:
+            liked = 0
         temp = [result.article.author, result.article.title, result.article.description, result.article.url,
-                result.article.url_to_image, result.article.published_at, result.article.source]
+                result.article.url_to_image, result.article.published_at, result.article.source, liked]
         i = result.article.article_id
         d[i] = temp
     return render(request, 'newsapp/profile.html', {'result': d})

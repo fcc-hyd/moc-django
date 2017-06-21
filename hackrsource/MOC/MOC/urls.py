@@ -20,6 +20,7 @@ from newsapp import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^password_reset/$', views.password_reset, name="password_reset"),
     url(r'^$', views.user_login, name="user_login"),
     url(r'^register/$', views.registeration, name="registeration"),
     url(r'^home/$', views.home, name="home"),
