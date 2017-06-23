@@ -17,8 +17,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'newsapp/content/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'newsapp/content/dashboard.css' %}" />
     <script src="{% static 'newsapp/scripts/jquery.js' %}"></script>
-    <script src="{% static 'newsapp/scripts/bootstrap.min.js' %}"></script>
     <script src="{% static 'newsapp/scripts/dashboard.js' %}"></script>
+
     
 </head>
 
@@ -33,7 +33,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-              <b class="navbar-brand"><a href="/">HackrSpace</a></b>
+              <b class="navbar-brand"><a href="/home">HackrSpace</a></b>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -46,12 +46,15 @@
                   <li>
                     <a href="/profile">Profile</a>
                   </li>
+                  <li>
+                    <a href="/logout">Logout</a>
+                  </li>
                 </ul>
             </div> 
         </div>
     </nav>
 {% block content %}{% endblock %}
+
 </body>
-    
 
 </html>

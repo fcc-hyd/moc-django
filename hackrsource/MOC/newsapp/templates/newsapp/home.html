@@ -16,26 +16,33 @@
 							</div>
 							<div class="panel-footer">
 								<div class="row">
-									<div class="col-md-3">
+									<div class="col-md-6">
 										<p class="article-author">
 											<b>Published by : </b>{{values.0}}
 										</p> <br>
 									</div>
-									<div class="col-md-9" >
-										<div class="col-md-3">
-											<button class="btn btn-primary" onclick="like({{id}})">
+									<div class="col-md-6" >
+                                        <div class="col-md-3">
+                                            {% if values.7 == 0 %}
+                                            <button class="btn btn-primary toggle-like" data-state=0 data-id="{{id}}">
 												Like
 											</button>
-										</div>
-										<div class="col-md-3">
-											<button class="btn btn-danger" onclick="unlike({{id}})">
+                                            {% else %}
+                                            <button class="btn btn-primary toggle-like" data-state=1 data-id="{{id}}">
 												Unlike
 											</button>
+                                            {% endif %}
 										</div>
 										<div class="col-md-3">
-											<button class="btn btn-default" onclick="bookmark({{id}})">
+                                            {% if values.8 == 0 %}
+											<button class="btn btn-success toggle-bookmark" data-state=0 data-id="{{id}}">
 												Bookmark
 											</button>
+                                            {% else %}
+                                            <button class="btn btn-success toggle-bookmark" data-state=1 data-id="{{id}}">
+												Remove Bookmark
+											</button>
+                                            {% endif %}
 										</div>
 
 									</div>
@@ -52,16 +59,5 @@
 	</div>	
 
 	<script type="text/javascript">
-		function bookmark(articleId){
-			//alert(articleId);
-			$.ajax({
-				type:"GET",
-				url:"bookmark",
-				data:{id:articleId},
-				success: function(data) {
-					alert(data);
-				},
-			});			
-		}
 	</script>
 {% endblock %}
