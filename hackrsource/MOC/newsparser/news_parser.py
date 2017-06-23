@@ -1,15 +1,6 @@
 import json
 import requests
 
-'''
-import os
-import django
-
-os.environ["DJANGO_SETTINGS_MODULE"] = "MOC.settings"
-django.setup()
-from newsapp.models import NewsArticle
-
-'''
 
 class NewsParser(object):
     """
