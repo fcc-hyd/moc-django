@@ -20,3 +20,8 @@ class RegisterationForm(forms.Form):
 class PasswordReset(forms.Form):
     email = forms.EmailField(required=True, label="Email ID")
     email.widget = forms.EmailInput(attrs={"class": "form-control", "name": "email", "id": "email"})
+
+
+class Comment(forms.Form):
+    comment = forms.CharField(required=True, max_length=200)
+    comment.widget = forms.TextInput(attrs={"class": "form-control", "name": "comment", "placeholder":"Enter your comment"})

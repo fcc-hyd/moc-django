@@ -6,8 +6,8 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-from models import NewsArticle, NewsBookmark, NewsLike
-from forms import LoginForm, RegisterationForm, PasswordReset
+from models import NewsArticle, NewsBookmark, NewsLike, NewsComment
+from forms import LoginForm, RegisterationForm, PasswordReset, Comment
 
 
 # Create your views here.
@@ -60,23 +60,41 @@ def registeration(request):
 
 @login_required(login_url="/")
 def home(request):
-    results = NewsArticle.objects.all()
-    d = {}
-    user = request.user
-    for result in results:
-        liked = 1
-        bookmarked = 1
-        liked_result = NewsLike.objects.filter(article=result, user=user)
-        bookmarked_result = NewsBookmark.objects.filter(article=result, user=user)
-        if len(liked_result) == 0:
-            liked = 0
-        if len(bookmarked_result) == 0:
-            bookmarked = 0
-        temp = [result.author, result.title, result.description, result.url, result.url_to_image, result.published_at,
-                result.source, liked, bookmarked]
-        i = result.article_id
-        d[i] = temp
-    return render(request, 'newsapp/home.html', {'result': d})
+    if request.method == "POST":
+        comment_form = Comment(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.cleaned_data["comment"]
+            id = int(request.POST["article_id"])
+            article = NewsArticle.objects.get(article_id=id)
+            user = request.user
+            new_comment = NewsComment(comment=comment, user=user, article=article, commented_at=datetime.now())
+            new_comment.save()
+            return HttpResponse(new_comment)
+        else:
+            return HttpResponse("Comment Form is not valid")
+    else:
+        results = NewsArticle.objects.all()
+        d = {}
+        user = request.user
+        for result in results:
+            liked = 1
+            bookmarked = 1
+            liked_result = NewsLike.objects.filter(article=result, user=user)
+            bookmarked_result = NewsBookmark.objects.filter(article=result, user=user)
+            if len(liked_result) == 0:
+                liked = 0
+            if len(bookmarked_result) == 0:
+                bookmarked = 0
+            comment_list = NewsComment.objects.filter(article=result)
+            comment_value_list = []
+            for comment_value in comment_list:
+                comment_value_list.append(comment_value.comment)
+            temp = [result.author, result.title, result.description, result.url, result.url_to_image, result.published_at,
+                    result.source, liked, bookmarked, comment_value_list]
+            i = result.article_id
+            comment_form = Comment()
+            d[i] = temp
+        return render(request, 'newsapp/home.html', {'result': d, 'comment_form':comment_form})
 
 
 @login_required(login_url="/")

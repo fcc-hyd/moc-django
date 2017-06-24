@@ -28,9 +28,6 @@ class NewsComment(models.Model):
     article = models.ForeignKey(NewsArticle, on_delete=models.CASCADE, related_name="article_comments")
     commented_at = models.DateField()
 
-    class Meta:
-        unique_together = ('user', 'article',)
-
     def __unicode__(self):
         return str(self.comment_id)
 

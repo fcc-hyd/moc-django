@@ -3,6 +3,8 @@ $(document).ready(function(){
         var element = $(this);
         var articleId = element.data("id");
         var state = element.data("state");
+        var location = element.data("location");
+        console.log("location - " + location);
         console.log("data-state value : " + state);
         if(state == "1"){
             console.log("Removing bookmark");
@@ -11,8 +13,14 @@ $(document).ready(function(){
                 url:"/unbookmark",
                 data:{id:articleId},
                 success: function(data) {
-                    element.data("state", 0);
-                    element.html("Bookmark");
+                    if(location == "profile"){
+                        id = "#article-" + articleId;
+                        $(id).remove();
+                    }
+                    else{
+                        element.data("state", 0);
+                        element.html("Bookmark");
+                    }
                 },
             });
         }
