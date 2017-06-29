@@ -15,12 +15,20 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+
 from newsapp import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.home, name="home"),
-    url(r'^bookmark$',views.bookmark, name="bookmark"),
-    url(r'^unbookmark$',views.unbookmark, name="unbookmark"),
+    url(r'^password_reset/$', views.password_reset, name="password_reset"),
+    url(r'^delete_comment/$', views.delete_comment, name="delete_comment"),
+    url(r'^$', views.user_login, name="user_login"),
+    url(r'^register/$', views.registeration, name="registeration"),
+    url(r'^home/$', views.home, name="home"),
+    url(r'^logout/$', views.user_logout, name="user_logout"),
+    url(r'^bookmark/$',views.bookmark, name="bookmark"),
+    url(r'^unbookmark/$',views.unbookmark, name="unbookmark"),
     url(r'^profile/$', views.profile, name="profile"),
+    url(r'^like/$', views.like, name="like"),
+    url(r'^unlike/$', views.unlike, name="unlike"),
 ]

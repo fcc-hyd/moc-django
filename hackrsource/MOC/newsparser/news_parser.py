@@ -29,22 +29,40 @@ class NewsParser(object):
         data = json.loads(json_result.text)
         final_list = []
         for article in data["articles"]:
+            author = article["author"]
+            if author is None:
+                author = ""
+            title = article["title"]
+            if title is None:
+                title = ""
+            description = article["description"]
+            if description is None:
+                description = ""
+            url = article["url"]
+            url_to_image = article["urlToImage"]
+            published_at = article["publishedAt"]
+            if published_at is None:
+                published_at = ""
             temp = [article["author"], article["title"], article["description"], article["url"], article["urlToImage"],
                     article["publishedAt"]]
             final_list.append(temp)
         return final_list
 
 
-'''
-    def store(self, final_list):
-        for value in final_list:
-            author = value[0]
-            title = value[1]
-            description = value[2]
-            url = value[3]
-            url_to_image = value[4]
-            published_at = value[5]
-            tempObj = NewsArticle(author=author, title=title, description=description, url=url,
-                                          url_to_image=url_to_image, published_at=published_at, source=self.source)
-            tempObj.save()
-'''
+    '''
+    
+        def store(self, final_list):
+            for value in final_list:
+                author = value[0]
+                title = value[1]
+                description = value[2]
+                url = value[3]
+                url_to_image = value[4]
+                published_at = value[5]
+                tempObj = NewsArticle(author=author, title=title, description=description, url=url,
+                                              url_to_image=url_to_image, published_at=published_at, source=self.source)
+                tempObj.save()
+    
+    '''
+
+
