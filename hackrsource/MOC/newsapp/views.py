@@ -25,7 +25,7 @@ def user_login(request):
                 login(request, user)
                 return HttpResponseRedirect("/home")
             else:
-                return HttpResponse("Error with login")
+                return HttpResponse("Error with login credentials")
         else:
             return HttpResponse("The form is not valid")
     else:
@@ -69,7 +69,7 @@ def home(request):
             user = request.user
             new_comment = NewsComment(comment=comment, user=user, article=article, commented_at=datetime.now())
             new_comment.save()
-            return HttpResponse(new_comment)
+            return HttpResponseRedirect("/home")
         else:
             return HttpResponse("Comment Form is not valid")
     else:
@@ -88,7 +88,7 @@ def home(request):
             comment_list = NewsComment.objects.filter(article=result)
             comment_value_list = []
             for comment_value in comment_list:
-                comment_value_list.append(comment_value.comment)
+                comment_value_list.append(comment_value)
             temp = [result.author, result.title, result.description, result.url, result.url_to_image, result.published_at,
                     result.source, liked, bookmarked, comment_value_list]
             i = result.article_id
@@ -156,6 +156,13 @@ def profile(request):
         i = result.article.article_id
         d[i] = temp
     return render(request, 'newsapp/profile.html', {'result': d})
+
+@login_required(login_url="/")
+def delete_comment(request):
+    comment_id = request.GET.get("id", None)
+    comment_id = int(comment_id)
+    NewsComment.objects.filter(comment_id = comment_id).delete()
+    return HttpResponse("You are not authorized buddy!")
 
 
 @login_required(login_url="/")

@@ -63,3 +63,32 @@ Things I should learn in MOC
  
 ## Jun 15
  - Made view for login and sign-in
+ 
+## Jun 16 and Jun 17
+ - Was in mozilla hackathon
+ - Created an extension for which works like a flashcard
+
+## Jun 18
+ - Continued to work on the authentication 
+ - Completed the sign-in
+
+## Jun 19
+ - Continued to work on likes functionality
+
+## Jun 20
+ - Was struck with a javascript issue
+ - Completed the likes functionality
+
+## Jun 21
+ - Made the likes and bookmark work fine with no refresh
+
+## Jun 22
+ - Worked on changes suggested by Ravi Merugu 
+ - Started working on comments 
+
+## Jun 23 and Jun 24
+ - Saturday and Sunday
+ - Worked on comments 
+
+## Jun 25
+ - Continued working on comments

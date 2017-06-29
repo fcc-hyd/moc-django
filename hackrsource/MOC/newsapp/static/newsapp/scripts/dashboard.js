@@ -3,7 +3,6 @@ $(document).ready(function(){
         var element = $(this);
         var articleId = element.data("id");
         var state = element.data("state");
-        var location = element.data("location");
         console.log("location - " + location);
         console.log("data-state value : " + state);
         if(state == "1"){
@@ -68,5 +67,20 @@ $(document).ready(function(){
                 },
              });
         }
+    });
+
+    $(".delete-comment").click(function(){
+        var element = $(this);
+        var commentId = element.data("id");
+        console.log("comment id deletion attempt " + commentId);
+        $.ajax({
+            type:"GET",
+            url:"/delete_comment",
+            data: {id:commentId},
+            success: function(data){
+                id = "#comment-" + commentId;
+                $(id).remove();
+            },
+        });
     });
 });

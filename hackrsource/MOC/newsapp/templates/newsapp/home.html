@@ -62,16 +62,23 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        {% for comment in values.9 %}
-                                            <p>{{comment}}</p>
-                                        {% endfor %}
+								{% for comment_value in values.9 %}
+                                    <div class="comment" id="comment-{{comment_value.comment_id}}">
+                                        <div class="row comment-user">
+                                            <div class="col-xs-4">
+                                                <b>{{comment_value.user.username}}</b>
+                                            </div>
+                                        </div>
+                                        <div class="row comment-box">
+                                            <div class="col-xs-10">
+                                                {{comment_value.comment}}
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <button class="btn btn-xs btn-danger delete-comment" data-id="{{comment_value.comment_id}}" >X</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="row">
-                                        <hr>
-                                    </div>
-                                </div>
+								{% endfor %}
 							</div>
 						</div>
 					</div>
